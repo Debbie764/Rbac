@@ -9,7 +9,7 @@
     "start": "node server/index.js",
     "seed": "node server/seed-admin.js",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "render-build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client"
+    "render-build": "npm install --prefix server && npm install --include=dev --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
