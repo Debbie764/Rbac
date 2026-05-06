@@ -1,6 +1,9 @@
 {
   "name": "lighweight-iam-system",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "description": "Lightweight Identity and Access Management System",
   "main": "server/index.js",
   "scripts": {
@@ -9,7 +12,7 @@
     "start": "node server/index.js",
     "seed": "node server/seed-admin.js",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "render-build": "npm install --prefix server && npm install --include=dev --prefix client && npm run build --prefix client"
+    "render-build": "npm install --prefix server && npm rebuild --prefix server && npm install --include=dev --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
