@@ -1,0 +1,80 @@
+CHAPTER THREE: SYSTEM ANALYSIS AND METHODOLOGY
+
+3.1 Research Design and Methodology
+The research design adopted for this project is a hybrid of descriptive and experimental methodologies. The descriptive aspect focuses on analyzing existing identity management challenges within educational institutions like Kogi State Polytechnic, while the experimental aspect involves the development and implementation of a lightweight Identity and Access Management (IAM) system. The methodology used is the Agile Software Development Life Cycle (SDLC), which allows for iterative development, rapid prototyping, and continuous integration of security features.
+
+3.2 System Requirements Specification
+The system is designed to be lightweight, ensuring it can run on minimal hardware while maintaining high security standards.
+
+3.2.1 Hardware Requirements
+- Client Side:
+  - Processor: Dual Core 2.0GHz or higher.
+  - RAM: 4GB minimum.
+  - Storage: 100MB of available space for browser caching.
+  - Internet connectivity.
+- Server Side (Development/Host):
+  - Processor: Intel Core i3 or equivalent.
+  - RAM: 8GB (for development environment).
+  - Production Host (AWS): EC2 t2.micro or t3.micro (1 vCPU, 1GB RAM) under AWS Free Tier.
+
+3.2.2 Software Requirements
+- Operating System: Windows 10/11, macOS, or Ubuntu 22.04 LTS (Production).
+- Development Environment: VS Code.
+- Runtime Environment: Node.js (v18.x or later).
+- Database: SQLite3 (Server-side storage).
+- Web Server: Nginx (Reverse proxy for production).
+- Process Management: PM2 (for backend process persistence).
+- Browser: Modern browsers (Chrome, Firefox, Edge) with JavaScript enabled.
+
+3.3 System Design
+The system architecture follows a Client-Server model, optimized for cloud deployment and low-latency interaction.
+
+3.3.1 Network Design / Topology Diagram
+The network topology consists of multiple client devices (PCs, Mobile devices) connecting to a centralized cloud-based server via the Internet. The server is protected by a virtual firewall (Security Group) that restricts traffic to authorized ports only.
+
+[Topology Description: Star Topology]
+- Central Node: AWS EC2 Instance running the IAM Backend and Database.
+- Peripheral Nodes: Stakeholder devices (Admin, Registrar, Lecturer, Student).
+- Communication Protocol: HTTPS/TLS.
+
+3.3.2 Cloud Architecture Diagram
+The system is hosted on the Amazon Web Services (AWS) cloud platform.
+- AWS VPC (Virtual Private Cloud): Provides an isolated network environment.
+- Public Subnet: Hosts the EC2 instance.
+- Security Group: Configured to allow inbound traffic on Port 80 (HTTP), Port 443 (HTTPS), Port 22 (SSH), and Port 5000 (API Service).
+- Data Layer: SQLite database stored locally on the EC2 instance volume for high speed and low complexity.
+
+3.3.3 IP Addressing Scheme / Subnet Plan
+- Static/Elastic IP: Assigned to the EC2 instance for persistent public access.
+- Internal Private IP: 172.31.x.x (AWS Default VPC range).
+- Port Mapping:
+  - 80: Nginx (Frontend delivery).
+  - 5000: Node.js/Express API (Internal backend).
+  - 22: Remote SSH Administrative access.
+
+3.4 Tools and Technologies Used
+- Backend: Node.js and Express.js for the RESTful API.
+- Authentication: JSON Web Tokens (JWT) for stateless session management.
+- Security: Bcrypt.js for cryptographic password hashing.
+- Frontend: React.js with Vite for a high-performance User Interface.
+- UI/UX: Framer Motion for animations and Vanilla CSS for modern, premium aesthetics.
+- Version Control: Git and GitHub.
+
+3.5 System Development Process / Implementation Procedure
+The implementation followed a structured sequence:
+1. Database Modeling: Defining the schema in SQLite to support users, roles, and audit logs.
+2. API Infrastructure: Developing the backend routes for authentication and user management.
+3. RBAC Logic: Implementing middleware to enforce Role-Based Access Control.
+4. Frontend Orchestration: Building the interactive dashboard and login system.
+5. Integration: Connecting the frontend to the backend via Axios.
+6. Cloud Migration: Deploying the application to AWS and configuring Nginx for production traffic.
+
+3.6 Testing Strategy and Evaluation Metrics
+The system underwent rigorous testing to ensure reliability and security:
+- Unit Testing: Verification of individual API endpoints for correct responses.
+- Integration Testing: Ensuring seamless data flow between the React frontend and the SQLite database.
+- Security Audit: Attempting unauthorized access to restricted routes (e.g., student attempting to access admin panels) to verify RBAC effectiveness.
+- Performance Metrics:
+  - Authentication Latency: Target < 500ms.
+  - Concurrency: Stability under simultaneous user logins.
+  - Token Integrity: Verification that expired or tampered JWTs are rejected.

@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: kogi-poly-iam
+    env: node
+    plan: free
+    buildCommand: npm run render-build
+    startCommand: npm run seed && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+      - key: DB_PATH
+        value: ./server/iam.db
+# Note: To persist SQLite data, use a Disk (Paid Tier only)
+# disks:
+#   - name: iam-data
+#     mountPath: /opt/render/project/src/server/data
+#     sizeGB: 1
